@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Wedding of Harry & Mutiara</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #fffafc, #ffe6f0);
+      text-align: center;
+      color: #333;
+      animation: fadeIn 2s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    h1 {
+      font-size: 2.2em;
+      margin-top: 60px;
+      color: #b22222;
+    }
+    p {
+      font-size: 1.1em;
+    }
+    #countdown {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #444;
+      margin: 30px 0;
+    }
+    .footer {
+      margin-top: 50px;
+      font-size: 0.9em;
+      color: #666;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8em; }
+      #countdown { font-size: 1.3em; }
+    }
+  </style>
+</head>
+<body>
+  <audio autoplay loop hidden>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_aa0a8b5ef0.mp3?filename=wedding-piano-violin-10820.mp3" type="audio/mpeg">
+  </audio>
+
+  <h1>The Wedding of<br>Harry & Mutiara</h1>
+  <p>08 November 2026 | 09:00 WIB</p>
+
+  <div id="countdown"></div>
+
+  <div class="footer">
+    <p>With love,</p>
+    <p><b>Harry & Mutiara</b></p>
+  </div>
+
+  <script>
+    const eventDate = new Date('November 8, 2026 09:00:00').getTime();
+    const countdown = document.getElementById('countdown');
+
+    const x = setInterval(function() {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdown.innerHTML = days + " Hari " + hours + " Jam " + minutes + " Menit " + seconds + " Detik ";
+
+      if (distance < 0) {
+        clearInterval(x);
+        countdown.innerHTML = "Selamat Berbahagia 💍";
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
