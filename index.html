@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TEMA 11 — Clone</title>
+  <style>
+    :root{--bg:#fff;--muted:#666;--accent:#8b5cf6}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:0;background:linear-gradient(180deg,#fff 0%,#f7f7fb 100%);color:#1f2937}
+    header{padding:28px 20px;text-align:center}
+    .logo{max-width:220px;height:auto;display:block;margin:0 auto 12px}
+    h1{margin:6px 0;font-size:28px;letter-spacing:0.6px}
+    .subtitle{color:var(--muted);margin-bottom:18px}
+    .card{max-width:900px;margin:18px auto;padding:18px;background:#fff;border-radius:12px;box-shadow:0 6px 20px rgba(16,24,40,0.06)}
+    .row{display:flex;gap:18px;flex-wrap:wrap}
+    .col{flex:1 1 220px;min-width:220px}
+    .meta{background:#fbfbff;padding:12px;border-radius:8px}
+    .meta h3{margin:6px 0;font-size:16px}
+    .muted{color:var(--muted);font-size:14px}
+    .images-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px}
+    .images-grid img{width:100%;height:80px;object-fit:cover;border-radius:8px;background:#eee}
+    .countdown{display:flex;gap:8px;justify-content:center;margin:12px 0}
+    .countdown > div{background:#111827;color:#fff;padding:10px 12px;border-radius:8px;min-width:58px;text-align:center}
+    .bank{padding:12px;background:#fff;border-radius:8px;border:1px dashed #e6e6f2}
+    .stickers{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+    .sticker{height:56px;border-radius:8px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:12px;color:#374151}
+    footer{padding:20px;text-align:center;color:var(--muted);font-size:13px}
+    @media (max-width:640px){.stickers{grid-template-columns:repeat(3,1fr)}.col{min-width:100%}}
+  </style>
+</head>
+<body>
+  <header>
+    <img class="logo" src="https://www.jsambac.com/wp-content/uploads/2024/placeholder-logo.png" alt="Logo">
+    <h1>TEMA 11</h1>
+    <div class="subtitle">Undangan — BAHAGIA KOPI HALIMUN</div>
+  </header>
+
+  <main class="card" id="app">
+    <section class="row">
+      <div class="col meta">
+        <h3>Lokasi</h3>
+        <div class="muted">Jl. Halimun No.21, Lkr. Sel., Kec. Lengkong, Kota Bandung, Jawa Barat 40263</div>
+        <div style="margin-top:12px;font-size:13px;color:var(--muted)">Widget Countdown Akan Digenerate Otomatis Ketika Loading Undangan.</div>
+        <div class="countdown" id="countdown" aria-hidden="true">
+          <div><div id="d">0</div><div style="font-size:12px">Hari</div></div>
+          <div><div id="h">0</div><div style="font-size:12px">Jam</div></div>
+          <div><div id="m">0</div><div style="font-size:12px">Menit</div></div>
+          <div><div id="s">0</div><div style="font-size:12px">Detik</div></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="bank">
+          <h3>Informasi Donasi / Rekening</h3>
+          <p class="muted">BANK XXX<br>[12312312XXX]<br>A.N : xxx</p>
+          <hr>
+          <p class="muted">DANA / GOPAY / SHOPEE<br>[0857XXXXXXX]<br>A.N : XXXX</p>
+        </div>
+
+        <div style="margin-top:14px">
+          <h3 style="margin:6px 0">Stickers</h3>
+          <div class="stickers" id="stickers">
+            <!-- generated stickers -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="margin-top:16px">
+      <h3 style="margin-bottom:8px">Galeri</h3>
+      <div class="images-grid" id="gallery">
+        <!-- images inserted by JS -->
+      </div>
+    </section>
+
+    <section style="margin-top:16px">
+      <h3>Komentar</h3>
+      <div id="comments" style="min-height:80px;padding:12px;background:#f9fafb;border-radius:8px;color:var(--muted)">Kolom Komentar Akan Digenerate Otomatis Ketika Loading Undangan.</div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; JSAMBAC — TEMA 11 Clone
+  </footer>
+
+  <script>
+    // --- Countdown (demo target: 7 days from now) ---
+    const target = new Date(); target.setDate(target.getDate() + 7);
+    function pad(n){return String(n).padStart(2,'0');}
+    function updateCountdown(){
+      const now = new Date(); let diff = Math.max(0, target - now);
+      const d = Math.floor(diff/86400000); diff%=86400000;
+      const h = Math.floor(diff/3600000); diff%=3600000;
+      const m = Math.floor(diff/60000); diff%=60000;
+      const s = Math.floor(diff/1000);
+      document.getElementById('d').textContent = d;
+      document.getElementById('h').textContent = pad(h);
+      document.getElementById('m').textContent = pad(m);
+      document.getElementById('s').textContent = pad(s);
+    }
+    updateCountdown(); setInterval(updateCountdown,1000);
+
+    // --- Populate gallery with placeholder images (mimic many thumbnails) ---
+    const gallery = document.getElementById('gallery');
+    for(let i=1;i<=12;i++){
+      const img = document.createElement('img');
+      img.src = `https://picsum.photos/seed/tema11-${i}/400/300`;
+      img.alt = `Gambar ${i}`;
+      gallery.appendChild(img);
+    }
+
+    // --- Stickers grid ---
+    const stickers = document.getElementById('stickers');
+    const stickerNames = ['Love','Congrats','Slamet','Happy','Bismillah','Amin','Doa','Bless','XOXO','Cheers','Terima Kasih','Selamat'];
+    stickerNames.forEach(s=>{
+      const d = document.createElement('div'); d.className='sticker'; d.textContent = s; stickers.appendChild(d);
+    });
+
+    // --- Comments demo ---
+    const comments = document.getElementById('comments');
+    const demoComments = [
+      {name:'Rina',text:'Semoga lancar acaranya!'},
+      {name:'Budi',text:'Selamat ya, bahagia selalu.'},
+      {name:'Ayu',text:'Insya Allah hadir.'}
+    ];
+    function renderComments(){
+      comments.innerHTML='';
+      demoComments.forEach(c=>{
+        const p = document.createElement('div');
+        p.style.padding='8px 6px'; p.style.borderBottom='1px solid #f1f1f6';
+        p.innerHTML = `<strong>${c.name}</strong><div style='font-size:14px;color:#374151'>${c.text}</div>`;
+        comments.appendChild(p);
+      });
+    }
+    renderComments();
+  </script>
+</body>
+</html>
